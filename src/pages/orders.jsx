@@ -1,5 +1,16 @@
 import { useState, useEffect } from "react";
-import { Table, Row, Col, List, DatePicker, Form, Input, Button } from "antd";
+import {
+  Table,
+  Row,
+  Col,
+  List,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Button,
+  Card,
+} from "antd";
 import httpClient from "../utils/httpClient";
 import moment from "moment";
 
@@ -31,6 +42,7 @@ const Orders = () => {
   useEffect(() => {
     setIsLoading(true);
     httpClient.get("/orders").then((response) => {
+      console.log("data", response.data.data);
       setOrderList(
         response.data.data.map((item) => ({ key: item.order_id, ...item }))
       );
@@ -71,8 +83,11 @@ const Orders = () => {
     <Row gutter={30}>
       <Col span={12}>
         <Form labelCol={{ span: 8 }} wrapperCol={{ span: 14 }} form={form}>
+          <Form.Item label="Order Id" name="order_id">
+            <InputNumber style={{ width: "100%" }} />
+          </Form.Item>
           <Form.Item label="Order Date" name="order_date_range">
-            <RangePicker />
+            <RangePicker style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item label="Shop Name" name="shop_name">
             <Input />
@@ -105,9 +120,20 @@ const Orders = () => {
         />
       </Col>
       <Col span={12}>
+        <Card title="Order Details" style={{ width: "100%", marginBottom: 20 }}>
+          <p>Customer Name: {selectedOrder?.user?.name}</p>
+          <p>Customer Email: {selectedOrder?.user?.email}</p>
+          <p>
+            Customer PhoneNumber:{" "}
+            {selectedOrder?.user.phone_area_code &&
+              `(${selectedOrder?.user?.phone_area_code || ""}) ${
+                selectedOrder?.user?.phone_number || ""
+              }`}
+          </p>
+        </Card>
         {selectedOrder && (
           <List
-            header={<h2>Order Details</h2>}
+            header={<h2>Order Items</h2>}
             bordered
             dataSource={selectedOrder.order_items}
             renderItem={(item) => (

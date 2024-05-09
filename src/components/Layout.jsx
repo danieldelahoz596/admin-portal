@@ -1,5 +1,5 @@
 import { useAuth } from "../hooks/useAuth";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu, theme, Button } from "antd";
 import { useMemo, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const { Header, Content } = Layout;
 const menuItems = [{ key: "orders", label: "Orders" }];
 
 const LayoutWrapper = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -29,14 +29,24 @@ const LayoutWrapper = () => {
 
   return (
     <Layout>
-      <Header style={{ display: "flex", alignItems: "center" }}>
+      <Header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={["orders"]}
+          defaultSelectedKeys={[]}
           items={items}
           style={{ flex: 1, minWidth: 0 }}
+          onSelect={({ key }) => {
+            navigate(`/${key}`);
+          }}
         />
+        <Button onClick={logout}>Logout</Button>
       </Header>
       <Content>
         <div

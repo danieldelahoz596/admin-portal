@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login";
 import HomePage from "./pages/home";
 import UserPage from "./pages/users";
+import OrderPage from "./pages/orders";
 import Layout from "./components/Layout";
 import { AuthProvider } from "./hooks/useAuth";
 
@@ -12,6 +13,7 @@ function App() {
         <Route path="/*" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="users" element={<UserPage />} />
+          <Route path="orders" element={<OrderPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
       </Routes>

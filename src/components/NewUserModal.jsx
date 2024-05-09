@@ -10,7 +10,7 @@ import {
 import httpClient from "../utils/httpClient";
 import moment from "moment";
 
-const NewUserModal = ({ isModalOpen, setIsModalOpen }) => {
+const NewUserModal = ({ isModalOpen, setIsModalOpen, onAddNewUser }) => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -24,6 +24,7 @@ const NewUserModal = ({ isModalOpen, setIsModalOpen }) => {
         })
         .then(({ data }) => {
           setIsModalOpen(false);
+          onAddNewUser(data.data);
           messageApi.success("Success to create a user");
         })
         .catch(

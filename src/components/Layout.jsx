@@ -5,7 +5,10 @@ import { useNavigate, Outlet } from "react-router-dom";
 
 const { Header, Content } = Layout;
 
-const menuItems = [{ key: "orders", label: "Orders" }];
+const menuItems = [
+  { key: "orders", label: "Orders" },
+  { key: "business-settings", label: "Business Settings" },
+];
 
 const LayoutWrapper = () => {
   const { user, logout } = useAuth();

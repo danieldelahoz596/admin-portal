@@ -121,15 +121,40 @@ const Orders = () => {
       </Col>
       <Col span={12}>
         <Card title="Order Details" style={{ width: "100%", marginBottom: 20 }}>
-          <p>Customer Name: {selectedOrder?.user?.name}</p>
-          <p>Customer Email: {selectedOrder?.user?.email}</p>
-          <p>
-            Customer PhoneNumber:{" "}
-            {selectedOrder?.user.phone_area_code &&
-              `(${selectedOrder?.user?.phone_area_code || ""}) ${
-                selectedOrder?.user?.phone_number || ""
-              }`}
-          </p>
+          <Row gutter={20}>
+            <Col span={12}>
+              <Form labelCol={{ span: 8 }} labelAlign="left">
+                <Form.Item label="Name">{selectedOrder?.user?.name}</Form.Item>
+                <Form.Item label="Email">
+                  {selectedOrder?.user?.email}
+                </Form.Item>
+                <Form.Item label="PhoneNumber">
+                  {selectedOrder?.user.phone_area_code &&
+                    `(${selectedOrder?.user?.phone_area_code || ""}) ${
+                      selectedOrder?.user?.phone_number || ""
+                    }`}
+                </Form.Item>
+                <Form.Item label="Address">
+                  {selectedOrder?.user?.address}
+                </Form.Item>
+                <Form.Item label="Seller">
+                  {selectedOrder?.user?.shop_name}
+                </Form.Item>
+              </Form>
+            </Col>
+            <Col span={12}>
+              <Form labelCol={{ span: 8 }} labelAlign="left">
+                <Form.Item label="Product Total">
+                  {selectedOrder?.product_total}
+                </Form.Item>
+                <Form.Item label="Shipping">
+                  {selectedOrder?.shipping}
+                </Form.Item>
+                <hr style={{ width: "100%" }} />
+                <Form.Item label="Total">{selectedOrder?.total}</Form.Item>
+              </Form>
+            </Col>
+          </Row>
         </Card>
         {selectedOrder && (
           <List
